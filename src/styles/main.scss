@@ -1,0 +1,21 @@
+@import "./base.scss";
+
+#app {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+}
+
+li {
+    list-style-type: none;
+}
+ul {
+    margin-left: 0;
+    padding-left: 0;
+}
