@@ -198,9 +198,23 @@ const store = createStore({
             return res.flat();
         },
         filteredSearchList: (state) => (value) => {
-            return state.searchList.filter((user) =>
-                user.first_name.toLowerCase().includes(value.toLowerCase())
+            let result = []
+             state.searchList.filter((user) => {
+                if (
+                    user.first_name.toLowerCase().includes(value.toLowerCase())
+                ) {
+                    result.push(user);
+                } else if (
+                    user.last_name.toLowerCase().includes(value.toLowerCase())
+                ) {
+                    result.push(user);
+                } else if (String(user.id).includes(String(value))) {
+                    result.push(user);
+                }
+
+            }
             );
+            return result
         },
         getWallUser: (state) => (value) => {
             console.log(state.friendsList[value]);
