@@ -24,7 +24,7 @@ const store = createStore({
                     {
                         Authorization: this.state.tokenApi,
                         user_id: this.state.idApi,
-                        count: 100,
+                        count: 5000,
                         v: version,
                         fields: "photo_100",
                         language: "ru",
@@ -60,7 +60,7 @@ const store = createStore({
                             Authorization: this.state.tokenApi,
                             user_id: id,
                             order: "name",
-                            count: 20,
+                            count: 5000,
                             v: version,
                             fields: "photo_100, sex, bdate",
                             language: "ru",
@@ -198,8 +198,8 @@ const store = createStore({
             return res.flat();
         },
         filteredSearchList: (state) => (value) => {
-            let result = []
-             state.searchList.filter((user) => {
+            let result = [];
+            state.searchList.filter((user) => {
                 if (
                     user.first_name.toLowerCase().includes(value.toLowerCase())
                 ) {
@@ -211,10 +211,8 @@ const store = createStore({
                 } else if (String(user.id).includes(String(value))) {
                     result.push(user);
                 }
-
-            }
-            );
-            return result
+            });
+            return result;
         },
         getWallUser: (state) => (value) => {
             console.log(state.friendsList[value]);
