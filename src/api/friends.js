@@ -9,7 +9,7 @@ export const resultCount = async (id) => {
                     "friends.get",
                     {
                         Authorization: store.state.tokenApi,
-                        user_id: store.state.idApi,
+                        user_id: id,
                         v: version,
                         language: "ru",
                     },

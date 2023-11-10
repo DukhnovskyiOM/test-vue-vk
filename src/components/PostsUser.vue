@@ -19,7 +19,7 @@ const index = store.state.friendsList.findIndex((e) => e.id == props.id);
                 <p>{{ item.text }}</p>
             </div>
             <div>
-                <img alt="photo" :src="item.attachments[0].photo.sizes[0].url" />
+                <img alt="photo" :src="item?.attachments[0]?.photo?.sizes[0]?.url" />
             </div>
         </User>
     </template>

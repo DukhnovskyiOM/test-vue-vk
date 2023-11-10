@@ -24,7 +24,7 @@ const store = createStore({
                     {
                         Authorization: this.state.tokenApi,
                         user_id: this.state.idApi,
-                        count: 5000,
+                        count: 100,
                         v: version,
                         fields: "photo_100",
                         language: "ru",
@@ -60,7 +60,7 @@ const store = createStore({
                             Authorization: this.state.tokenApi,
                             user_id: id,
                             order: "name",
-                            count: 5000,
+                            count: 100,
                             v: version,
                             fields: "photo_100, sex, bdate",
                             language: "ru",
@@ -215,7 +215,7 @@ const store = createStore({
             return result;
         },
         getWallUser: (state) => (value) => {
-            console.log(state.friendsList[value]);
+            // console.log(state.friendsList[value]);
             return state.friendsList[value].w;
         },
     },
