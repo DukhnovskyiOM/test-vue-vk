@@ -58,7 +58,7 @@ const store = createStore({
                         "friends.get",
                         {
                             Authorization: this.state.tokenApi,
-                            user_id: this.state.idApi,
+                            user_id: id,
                             order: "name",
                             count: 20,
                             v: version,
