@@ -32,7 +32,7 @@ const openAuth = () => {
 
 <template>
     <div v-if="!store.state.tokenApi" class="results_search_none">
-        <strong>Loading...<button @click="openAuth">нажми для авторизации</button></strong>
+        <strong>Loading...<button class="auth" @click="openAuth">нажми для авторизации</button></strong>
     </div>
     <input
         v-else
@@ -64,6 +64,26 @@ const openAuth = () => {
 </template>
 
 <style lang="scss" scoped>
+
+
+    .auth {
+        background: rgb(102, 255, 0);
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        margin: 25px;
+        color: rgb(0, 0, 0);
+        user-select: none;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 10px;
+        overflow: hidden;
+        position: relative;
+        right: 15px;
+        top: 5px;
+        text-align: center;
+    }
+
 .results_search_none {
     font-size: 14px;
     font-weight: 400;
