@@ -28,9 +28,9 @@ const sexUser = (num) => {
 
 <template>
     <template v-for="user in store.getters.getFriendsList" :key="Math.random()">
-        <User>
+        <User :class="{ active: store.getters.getInFriendsList(user.id).length > 1 }">
             <router-link :to="{ path: `/user/${user.id}` }">
-                <div class="itemWrapp">
+                <div class="itemWrapp" >
                     <div class="image">
                         <img alt="user photo" :src="user.photo_100" />
                     </div>
@@ -61,6 +61,9 @@ const sexUser = (num) => {
 </template>
 
 <style lang="scss" scoped>
+.active {
+    background-color: rgb(250, 249, 249);
+}
 .itemWrapp {
     display: flex;
     flex-direction: row;

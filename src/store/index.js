@@ -203,6 +203,7 @@ const store = createStore({
             );
         },
         getWallUser: (state) => (value) => {
+            console.log(state.friendsList[value]);
             return state.friendsList[value].w;
         },
     },

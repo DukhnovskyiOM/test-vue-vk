@@ -27,7 +27,6 @@ const openAuth = () => {
         }
     }, VK.access.FRIENDS);
 };
-// setTimeout(openAuth(), 500)
 </script>
 
 <template>
