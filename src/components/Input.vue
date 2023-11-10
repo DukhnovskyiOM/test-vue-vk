@@ -1,16 +1,38 @@
 <script setup>
 import { ref } from "vue";
 import store from "../store";
+const id = import.meta.env.VITE_APP_ID;
+
 const input = ref("");
 
 const addUserToOriginalList = (user) => {
     store.dispatch("addUser", user);
 };
+const openAuth = () => {
+    VK.init({
+        apiId: id,
+        SameSite: 'none',
+        crossorigin: ''
+    });
+    VK.Auth.login(function (response) {
+        console.log(response);
+        if (response.session) {
+            const n = response.session.sid;
+            const id = response.session.user.id;
+            store.commit("newToken", n);
+            store.commit("newId", id);
+            store.dispatch("getUsers");
+        } else {
+            alert("нужна авторизация");
+        }
+    }, VK.access.FRIENDS);
+};
+// setTimeout(openAuth(), 500)
 </script>
 
 <template>
-    <div v-if="store.state.isLoading" class="results_search_none">
-        <strong>Loading...</strong>
+    <div v-if="!store.state.tokenApi" class="results_search_none">
+        <strong>Loading...<button @click="openAuth">нажми для авторизации</button></strong>
     </div>
     <input
         v-else

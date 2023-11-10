@@ -1,5 +1,5 @@
-const token = import.meta.env.VITE_APP_TOKEN;
 const version = import.meta.env.VITE_APP_VERSION;
+import store from "../store";
 
 export const resultWall = async (id) => {
     return new Promise((resolve) => {
@@ -8,7 +8,7 @@ export const resultWall = async (id) => {
                 VK.Api.call(
                     "wall.get",
                     {
-                        access_token: token,
+                        Authorization: store.state.tokenApi,
                         owner_id: id,
                         count: 50,
                         filter: "all",

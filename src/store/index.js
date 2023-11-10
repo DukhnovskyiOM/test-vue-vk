@@ -2,16 +2,13 @@ import { createStore } from "vuex";
 import { resultCount } from "../api/friends";
 import { resultWall } from "../api/wall";
 
-const token = import.meta.env.VITE_APP_TOKEN;
-const id = import.meta.env.VITE_APP_ID;
-const userId = import.meta.env.VITE_APP_USER_ID;
 const version = import.meta.env.VITE_APP_VERSION;
 
 const store = createStore({
     state() {
         return {
-            userId: "",
-            isLoading: false,
+            idApi: "",
+            tokenApi: "",
             isLoadingFriends: false,
             searchList: [],
             origilaList: [],
@@ -21,16 +18,12 @@ const store = createStore({
     },
     actions: {
         async getUsers({ commit }) {
-            this.state.isLoading = true;
             try {
-                await VK.init({
-                    apiId: id,
-                });
                 await VK.Api.call(
                     "friends.get",
                     {
-                        access_token: token,
-                        user_id: userId,
+                        Authorization: this.state.tokenApi,
+                        user_id: this.state.idApi,
                         count: 100,
                         v: version,
                         fields: "photo_100",
@@ -39,7 +32,6 @@ const store = createStore({
                     (res) => {
                         if (res.response) {
                             const users = res.response.items;
-                            this.state.isLoading = false;
                             commit("addUsersSearchList", users);
                         }
                     }
@@ -60,16 +52,13 @@ const store = createStore({
             commit("clearFriendsList");
             this.state.isLoadingFriends = true;
             try {
-                await VK.init({
-                    apiId: id,
-                });
                 for (let i = 0; i < this.state.origilaList.length; i++) {
                     const id = this.state.origilaList[i].id;
                     await VK.Api.call(
                         "friends.get",
                         {
-                            access_token: token,
-                            user_id: id,
+                            Authorization: this.state.tokenApi,
+                            user_id: this.state.idApi,
                             order: "name",
                             count: 20,
                             v: version,
@@ -126,6 +115,12 @@ const store = createStore({
     mutations: {
         addUsersSearchList(state, users) {
             state.searchList = users;
+        },
+        newToken(state, n) {
+            state.tokenApi = n;
+        },
+        newId(state, id) {
+            state.idApi = id;
         },
         buildFriendsList(state, users) {
             state.friendsList = [...state.friendsList, ...users];

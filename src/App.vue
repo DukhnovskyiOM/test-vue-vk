@@ -1,11 +1,5 @@
 <script setup>
-import { onBeforeMount } from "vue";
 import Input from "./components/Input.vue";
-import store from "./store";
-
-onBeforeMount(() => {
-    store.dispatch("getUsers");
-});
 </script>
 
 <template>

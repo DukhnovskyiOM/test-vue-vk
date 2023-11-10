@@ -1,5 +1,5 @@
-const token = import.meta.env.VITE_APP_TOKEN;
 const version = import.meta.env.VITE_APP_VERSION;
+import store from "../store";
 
 export const resultCount = async (id) => {
     return new Promise((resolve) => {
@@ -8,8 +8,8 @@ export const resultCount = async (id) => {
                 VK.Api.call(
                     "friends.get",
                     {
-                        access_token: token,
-                        user_id: id,
+                        Authorization: store.state.tokenApi,
+                        user_id: store.state.idApi,
                         v: version,
                         language: "ru",
                     },
