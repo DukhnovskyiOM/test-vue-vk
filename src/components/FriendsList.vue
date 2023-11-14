@@ -24,20 +24,44 @@ const sexUser = (num) => {
         return "не указоно";
     }
 };
+const getRGBC = (perc) => {
+    let r = perc;
+    if (perc > 7) {
+        r = 1;
+    }
+    const n = `${r * 2 + 10}`;
+    const color = `${n}5`;
+    return `${color}, ${color}, ${color}`;
+};
 </script>
 
 <template>
     <template v-for="user in store.getters.getFriendsList" :key="Math.random()">
-        <User :class="{ active: store.getters.getInFriendsList(user.id).length > 1 }">
+        <User
+            :style="{
+                backgroundColor: `rgb(${getRGBC(
+                    store.getters.getInFriendsList(user.id).length
+                )})`,
+            }"
+        >
             <router-link :to="{ path: `/user/${user.id}` }">
-                <div class="itemWrapp" >
+                <div class="itemWrapp">
                     <div class="image">
                         <img alt="user photo" :src="user.photo_100" />
                     </div>
                     <div class="text">
                         <h3>{{ user.first_name }} {{ user.last_name }}</h3>
                         <p>
-                            Пол: <span>{{ sexUser(user.sex) }}</span>
+                            Пол:
+                            <span
+                                >{{ sexUser(user.sex) }}
+                                {{
+                                    getRGBC(
+                                        store.getters.getInFriendsList(user.id)
+                                            .length
+                                    )
+                                }}</span
+                            >
                         </p>
                         <p>
                             Возраст:
@@ -61,9 +85,6 @@ const sexUser = (num) => {
 </template>
 
 <style lang="scss" scoped>
-.active {
-    background-color: rgb(250, 249, 249);
-}
 .itemWrapp {
     display: flex;
     flex-direction: row;
@@ -75,7 +96,7 @@ const sexUser = (num) => {
     min-height: 45px;
     width: 45px;
     height: 45px;
-    border: 1px solid lightgrey;
+    border: 1px solid lightgray;
     border-radius: 3px;
     align-items: center;
     justify-content: center;
@@ -90,18 +111,22 @@ const sexUser = (num) => {
 
 .text {
     width: 90%;
+    color: black;
 
     h3 {
         margin-bottom: 3px;
+        color: black;
     }
 
     p {
         font-size: 14px;
-        color: grey;
+        color: black;
         margin-bottom: 2px;
 
         span {
-            color: rgb(39, 39, 39);
+            color: black;
+            font-size: 16px;
+            font-weight: 500;
         }
     }
 }

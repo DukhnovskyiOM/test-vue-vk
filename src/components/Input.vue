@@ -15,7 +15,6 @@ const openAuth = () => {
         crossorigin: ''
     });
     VK.Auth.login(function (response) {
-        console.log(response);
         if (response.session) {
             const n = response.session.sid;
             const id = response.session.user.id;

@@ -24,7 +24,7 @@ const store = createStore({
                     {
                         Authorization: this.state.tokenApi,
                         user_id: this.state.idApi,
-                        count: 100,
+                        count: 300,
                         v: version,
                         fields: "photo_100",
                         language: "ru",
@@ -60,7 +60,7 @@ const store = createStore({
                             Authorization: this.state.tokenApi,
                             user_id: id,
                             order: "name",
-                            count: 100,
+                            count: 300,
                             v: version,
                             fields: "photo_100, sex, bdate",
                             language: "ru",
@@ -82,6 +82,7 @@ const store = createStore({
         },
         clearList({ commit }) {
             commit("clearFriendsList");
+            this.state.isLoadingFriends = false;
         },
         async addFriendsCount({ commit }, users) {
             for (let j = 0; j < users.length; j++) {
