@@ -26,7 +26,7 @@ const store = createStore({
                         user_id: this.state.idApi,
                         count: 300,
                         v: version,
-                        fields: "photo_100",
+                        fields: "photo_100, domain",
                         language: "ru",
                     },
                     (res) => {
@@ -62,16 +62,20 @@ const store = createStore({
                             order: "name",
                             count: 300,
                             v: version,
-                            fields: "photo_100, sex, bdate",
+                            fields: "photo_100, sex, bdate, domain",
                             language: "ru",
                         },
                         (res) => {
                             if (res.response) {
                                 const users = res.response.items;
-                                commit("buildFriendsList", users);
-                                commit("buildInFriendsList", { id, users });
-                                this.dispatch("addFriendsCount", users);
-                                this.dispatch("addFriendsUserWall", users);
+                                if (this.state.origilaList.length !== 0) {
+                                    commit("buildFriendsList", users);
+                                    commit("buildInFriendsList", { id, users });
+                                    this.dispatch("addFriendsCount", users);
+                                    this.dispatch("addFriendsUserWall", users);
+                                } else {
+                                    this.state.isLoadingFriends = false;
+                                }
                             }
                         }
                     );
@@ -95,6 +99,9 @@ const store = createStore({
                     const r = "нет доступа";
                     commit("changeCountUser", { r, idd });
                 }
+                if (this.state.origilaList.length === 0) {
+                    break;
+                }
             }
             this.state.isLoadingFriends = false;
         },
@@ -109,6 +116,9 @@ const store = createStore({
                 } else {
                     const r = [];
                     commit("changeWallUser", { r, idd });
+                }
+                if (this.state.origilaList.length === 0) {
+                    break;
                 }
             }
         },
@@ -221,6 +231,8 @@ const store = createStore({
                 ) {
                     result.push(user);
                 } else if (String(user.id).includes(String(value))) {
+                    result.push(user);
+                } else if (String(user.domain).includes(String(value))) {
                     result.push(user);
                 }
             });
