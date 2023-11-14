@@ -180,7 +180,18 @@ const store = createStore({
             return state.origilaList;
         },
         getFriendsList(state) {
-            return state.friendsList;
+            let result = state.friendsList.reduce((acc, item) => {
+                let oldItem = acc.find((oldItem) => oldItem.id === item.id);
+                if (oldItem) {
+                    oldItem.first_name = "" + oldItem.first_name;
+                } else {
+                    acc.push(item);
+                }
+                return acc;
+            }, []);
+            return result.sort((a, b) =>
+                a.first_name > b.first_name ? 1 : -1
+            );
         },
         getInFriendsList: (state) => (id) => {
             const res = state.origilaList.map((e) => {

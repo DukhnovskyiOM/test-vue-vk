@@ -53,15 +53,7 @@ const getRGBC = (perc) => {
                         <h3>{{ user.first_name }} {{ user.last_name }}</h3>
                         <p>
                             Пол:
-                            <span
-                                >{{ sexUser(user.sex) }}
-                                {{
-                                    getRGBC(
-                                        store.getters.getInFriendsList(user.id)
-                                            .length
-                                    )
-                                }}</span
-                            >
+                            <span>{{ sexUser(user.sex) }} </span>
                         </p>
                         <p>
                             Возраст:
